@@ -27,15 +27,11 @@ def obtener_info_sistema():
     Usa la biblioteca 'sys' para validar el entorno de ejecución.
     Requisitos: Realizar 3 llamadas distintas a la biblioteca 'sys'.
     """
-
+    # Mostrar información del sistema usando la biblioteca 'sys'
     print("\n--- INFORMACIÓN DEL SISTEMA ---")
-
     print("Sistema operativo:", sys.platform)
-
     print("Versión de Python:", sys.version)
-
     print("Tamaño máximo entero:", sys.maxsize)
-
     print("--- FIN DE INFORMACIÓN DEL SISTEMA ---\n")
 
 def simular_metricas_entrenamiento(cantidad_epochs):
@@ -43,10 +39,10 @@ def simular_metricas_entrenamiento(cantidad_epochs):
     Usa las bibliotecas 'random' y 'datetime' para simular los datos de entrenamiento.
     Requisitos: 3 llamadas a 'random' y 3 llamadas a 'datetime'.
     """
-    # Llamada datetime 1: obtener la fecha y hora exacta de inicio
+    # obtener la fecha y hora exacta de inicio
     inicio_simulacion = datetime.datetime.now()
 
-    # Llamada datetime 2: formatear la fecha de inicio en español (Día/Mes/Año Hora:Minuto:Segundo)
+    # formatear la fecha de inicio en español (Día/Mes/Año Hora:Minuto:Segundo)
     fecha_formateada = inicio_simulacion.strftime("%d/%m/%Y %H:%M:%S")
     print(f"Inicio de simulación: {fecha_formateada}")
 
@@ -62,17 +58,19 @@ def simular_metricas_entrenamiento(cantidad_epochs):
     while contador < cantidad_epochs:
         epoch_actual = contador + 1
 
+        # generar fluctuación del error de pérdida (loss) con float
         loss = random.uniform(0.1, 1.0)
-
+        # simular probabilidad de éxito de la iteración
         probabilidad_exito = random.random()
-
+        # seleccionar aleatoriamente un evento del log
         evento = random.choice(eventos_log)
-
+        # # Simular latencia en milisegundos
         latencia = 100 + (loss * 50)
-
+        
         lista_loss.append(loss)
         lista_latencia.append(latencia)
 
+        # Determinar estado del epoch según probabilidad de éxito
         if probabilidad_exito >= 0.5:
             estado = "OK"
         else:
@@ -81,7 +79,7 @@ def simular_metricas_entrenamiento(cantidad_epochs):
         print(f"  Epoch {epoch_actual:02d} | Loss: {loss:.4f} | Evento: {evento} | Estado: {estado}")
 
         contador = contador + 1
-
+    # calcular la diferencia de tiempo entre inicio y fin
     fin_simulacion = datetime.datetime.now()
     diferencia_tiempo = fin_simulacion - inicio_simulacion
     print(f"\nTiempo total de simulación: {diferencia_tiempo.total_seconds():.4f} segundos")
@@ -95,16 +93,16 @@ def analizar_rendimiento(lista_loss, lista_latencia):
     """
 
     print("\n--- ANÁLISIS DE RENDIMIENTO ---")
-
+    # calcular la media de los valores de pérdida
     media_loss = statistics.mean(lista_loss)
     print(f"Media del Loss:              {media_loss:.4f}")
-
+    # calcular la desviación estándar para medir estabilidad
     if len(lista_loss) > 1:
         desviacion_loss = statistics.stdev(lista_loss)
     else:
         desviacion_loss = 0.0
     print(f"Desviación Estándar del Loss: {desviacion_loss:.4f}")
-
+    # obtener la mediana de la latencia del proceso
     mediana_latencia = statistics.median(lista_latencia)
     print(f"Mediana de la Latencia:      {mediana_latencia:.2f} ms")
 
@@ -125,16 +123,18 @@ def calcular_rmse(predicciones, reales):
     contador = 0
     while contador < n:
         diferencia = predicciones[contador] - reales[contador]
-
+        # calcular el cuadrado de la diferencia usando math.pow
         cuadrado = math.pow(diferencia, 2)
-
+        # fabs() para obtener el valor absoluto del cuadrado
         cuadrado_abs = math.fabs(cuadrado)
 
         suma_cuadrados = suma_cuadrados + cuadrado_abs
         contador = contador + 1
-
+    
     mse = suma_cuadrados / n
+    # # sqrt() para calcular la raíz cuadrada del MSE y obtener el RMSE
     rmse = math.sqrt(mse)
+    # Calcular cantidad de epochs necesarios redondeando hacia arriba
     epochs_necesarios = math.ceil(rmse * MAX_EPOCHS)
 
     print(f"RMSE calculado:              {rmse:.4f}")
@@ -150,13 +150,16 @@ if __name__ == "__main__":
     print("=" * 48)
     print("=== INICIANDO SIMULADOR DE AGENTES DE IA ===")
     print("=" * 48)
-
+    # Mostrar información del sistema
     obtener_info_sistema()
 
+    #Simular el entrenamiento y recolectar métricas
     lista_loss, lista_latencia = simular_metricas_entrenamiento(MAX_EPOCHS)
-
+    
+    # Analizar el rendimiento con estadísticas
     media_loss = analizar_rendimiento(lista_loss, lista_latencia)
 
+    # Simular predicciones y valores reales para calcular RMSE
     predicciones_simuladas = lista_loss
     valores_reales_simulados = []
     indice = 0
@@ -167,6 +170,7 @@ if __name__ == "__main__":
 
     rmse_final = calcular_rmse(predicciones_simuladas, valores_reales_simulados)
 
+    # Reporte final
     print("=" * 48)
     print("           REPORTE FINAL DEL ENTRENAMIENTO")
     print("=" * 48)
