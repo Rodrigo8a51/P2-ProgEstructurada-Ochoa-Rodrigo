@@ -182,3 +182,44 @@ if __name__ == "__main__":
         print("\n[OK] Las métricas están dentro del rango aceptable.")
         print("Simulación completada exitosamente.")
         print("=" * 48)
+
+"""
+CUESTIONARIO DE ANÁLISIS DE BIBLIOTECAS
+
+1. Uso de Objetos y Métodos:
+   En datetime.datetime.now(), el objeto/clase es datetime,
+   y el método que se llama es now()
+   El primer datetime es el nombre de la biblioteca que importamos,
+   como esta biblioteca no la creamos nosotros es una biblioteca externa
+
+2. Diferenciación Técnica:
+   Cuando usamos import math, para llamar una función tenemos que escribir
+   el nombre del módulo primero, mientras que cuando usamos 
+   from math import sqrt, ya no necesitamos escribir math.
+   adelante, simplemente escribimos sqrt directamente
+
+3. Flujo y Lógica:
+   Primero la función simular_metricas_entrenamiento() genera un valor de
+   loss aleatorio por cada epoch y los va guardando en una lista llamada
+   lista_loss. Al terminar, esa lista se retorna
+   En el programa principal ese valor retornado se guarda en una variable
+   también llamada lista_loss, luego esa misma variable se pasa como
+   argumento a la función calcular_rmse(lista_loss) que recorre la lista,
+   calcula las diferencias contra un valor ideal y aplica la fórmula del
+   RMSE
+
+4. Mapeo de Tipos de Datos:
+   Use dos listas como tipos de datos complejos :
+   - lista_loss: guarda todos los valores de loss generados en cada epoch
+   - eventos: guarda los posibles mensajes de log del entrenamiento
+   Se eligió la lista en lugar de variables simples porque necesitaba
+   almacenar múltiples valores del mismo tipo, si hubiéramos usado variables
+   simples no podríamos pasarlos fácilmente a las
+   funciones
+
+5. Autoevaluación de Abstracción:
+   No, no fue necesario programar la fórmula matemática de la desviación
+   estándar, solo se escribió statistics.stdev(lista_loss) y la biblioteca
+   hizo todo el cálculo internamente, solo necesitamos saber qué
+   hace y cómo usarla
+"""
