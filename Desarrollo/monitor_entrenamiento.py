@@ -23,12 +23,21 @@ UMBRAL_ERROR_CRITICO = 0.95
 # 3. FUNCIONES DEFINIDAS POR EL USUARIO
 # ==========================================
 def obtener_info_sistema():
- """
- Usa la biblioteca 'sys' para validar el entorno de ejecución.
- Requisitos: Realizar 3 llamadas distintas a la biblioteca 'sys'.
- """
- # TODO: Implementar lógica
- pass
+    """
+    Usa la biblioteca 'sys' para validar el entorno de ejecución.
+    Requisitos: Realizar 3 llamadas distintas a la biblioteca 'sys'.
+    """
+
+    print("\n--- INFORMACIÓN DEL SISTEMA ---")
+
+    print("Sistema operativo:", sys.platform)
+
+    print("Versión de Python:", sys.version)
+
+    print("Tamaño máximo entero:", sys.maxsize)
+
+    print("--- FIN DE INFORMACIÓN DEL SISTEMA ---\n")
+
 def simular_metricas_entrenamiento(cantidad_epochs):
  """
  Usa las bibliotecas 'random' y 'datetime' para simular los datos de entrenamiento.
