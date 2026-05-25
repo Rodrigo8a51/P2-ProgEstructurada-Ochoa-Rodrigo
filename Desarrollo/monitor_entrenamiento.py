@@ -39,12 +39,55 @@ def obtener_info_sistema():
     print("--- FIN DE INFORMACIÓN DEL SISTEMA ---\n")
 
 def simular_metricas_entrenamiento(cantidad_epochs):
- """
- Usa las bibliotecas 'random' y 'datetime' para simular los datos de entrenamiento.
- Requisitos: 3 llamadas a 'random' y 3 llamadas a 'datetime'.
- """
- # TODO: Implementar lógica
- pass
+    """
+    Usa las bibliotecas 'random' y 'datetime' para simular los datos de entrenamiento.
+    Requisitos: 3 llamadas a 'random' y 3 llamadas a 'datetime'.
+    """
+    # Llamada datetime 1: obtener la fecha y hora exacta de inicio
+    inicio_simulacion = datetime.datetime.now()
+
+    # Llamada datetime 2: formatear la fecha de inicio en español (Día/Mes/Año Hora:Minuto:Segundo)
+    fecha_formateada = inicio_simulacion.strftime("%d/%m/%Y %H:%M:%S")
+    print(f"Inicio de simulación: {fecha_formateada}")
+
+    # Lista de eventos posibles para el log
+    eventos_log = ["Epoch exitoso", "Gradiente inestable", "Actualización de pesos"]
+
+    lista_loss = []
+    lista_latencia = []
+
+    print("\n--- SIMULACIÓN DE EPOCHS ---")
+
+    contador = 0
+    while contador < cantidad_epochs:
+        epoch_actual = contador + 1
+
+        loss = random.uniform(0.1, 1.0)
+
+        probabilidad_exito = random.random()
+
+        evento = random.choice(eventos_log)
+
+        latencia = 100 + (loss * 50)
+
+        lista_loss.append(loss)
+        lista_latencia.append(latencia)
+
+        if probabilidad_exito >= 0.5:
+            estado = "OK"
+        else:
+            estado = "ADVERTENCIA"
+
+        print(f"  Epoch {epoch_actual:02d} | Loss: {loss:.4f} | Evento: {evento} | Estado: {estado}")
+
+        contador = contador + 1
+
+    fin_simulacion = datetime.datetime.now()
+    diferencia_tiempo = fin_simulacion - inicio_simulacion
+    print(f"\nTiempo total de simulación: {diferencia_tiempo.total_seconds():.4f} segundos")
+
+    return lista_loss, lista_latencia
+
 def analizar_rendimiento(lista_loss):
  """
  Usa la biblioteca 'statistics' para analizar el comportamiento del entrenamiento.
