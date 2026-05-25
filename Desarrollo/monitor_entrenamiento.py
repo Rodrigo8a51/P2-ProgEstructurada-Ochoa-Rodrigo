@@ -147,5 +147,38 @@ def calcular_rmse(predicciones, reales):
 # 4. PROGRAMA PRINCIPAL (PUNTO DE ENTRADA)
 # ==========================================
 if __name__ == "__main__":
- print("=== INICIANDO SIMULADOR DE AGENTES DE IA ===")
- # TODO: Invocar las funciones, orquestar el flujo y mostrar reportes ordenados.
+    print("=" * 48)
+    print("=== INICIANDO SIMULADOR DE AGENTES DE IA ===")
+    print("=" * 48)
+
+    obtener_info_sistema()
+
+    lista_loss, lista_latencia = simular_metricas_entrenamiento(MAX_EPOCHS)
+
+    media_loss = analizar_rendimiento(lista_loss, lista_latencia)
+
+    predicciones_simuladas = lista_loss
+    valores_reales_simulados = []
+    indice = 0
+    while indice < len(lista_loss):
+        valor_real = lista_loss[indice] - 0.05
+        valores_reales_simulados.append(valor_real)
+        indice = indice + 1
+
+    rmse_final = calcular_rmse(predicciones_simuladas, valores_reales_simulados)
+
+    print("=" * 48)
+    print("           REPORTE FINAL DEL ENTRENAMIENTO")
+    print("=" * 48)
+    print(f"  Media Loss:    {media_loss:.4f}")
+    print(f"  RMSE Final:    {rmse_final:.4f}")
+    print(f"  Umbral crítico: {UMBRAL_ERROR_CRITICO}")
+
+    if media_loss >= UMBRAL_ERROR_CRITICO:
+        print("\n[CRÍTICO] La media del Loss supera el umbral permitido.")
+        print("Finalizando el programa con código de error 1...")
+        sys.exit(1)
+    else:
+        print("\n[OK] Las métricas están dentro del rango aceptable.")
+        print("Simulación completada exitosamente.")
+        print("=" * 48)
