@@ -88,13 +88,30 @@ def simular_metricas_entrenamiento(cantidad_epochs):
 
     return lista_loss, lista_latencia
 
-def analizar_rendimiento(lista_loss):
- """
- Usa la biblioteca 'statistics' para analizar el comportamiento del entrenamiento.
- Requisitos: 3 llamadas distintas a la biblioteca 'statistics'.
- """
- # TODO: Implementar lógica
- pass
+def analizar_rendimiento(lista_loss, lista_latencia):
+    """
+    Usa la biblioteca 'statistics' para analizar el comportamiento del entrenamiento.
+    Requisitos: 3 llamadas distintas a la biblioteca 'statistics'.
+    """
+
+    print("\n--- ANÁLISIS DE RENDIMIENTO ---")
+
+    media_loss = statistics.mean(lista_loss)
+    print(f"Media del Loss:              {media_loss:.4f}")
+
+    if len(lista_loss) > 1:
+        desviacion_loss = statistics.stdev(lista_loss)
+    else:
+        desviacion_loss = 0.0
+    print(f"Desviación Estándar del Loss: {desviacion_loss:.4f}")
+
+    mediana_latencia = statistics.median(lista_latencia)
+    print(f"Mediana de la Latencia:      {mediana_latencia:.2f} ms")
+
+    print("--- FIN DEL ANÁLISIS ---\n")
+
+    return media_loss
+
 def calcular_rmse(predicciones, reales):
  """
  Usa la biblioteca 'math' para calcular el Root Mean Squared Error (RMSE).
