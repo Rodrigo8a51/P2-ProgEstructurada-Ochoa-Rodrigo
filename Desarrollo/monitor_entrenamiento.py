@@ -113,12 +113,36 @@ def analizar_rendimiento(lista_loss, lista_latencia):
     return media_loss
 
 def calcular_rmse(predicciones, reales):
- """
- Usa la biblioteca 'math' para calcular el Root Mean Squared Error (RMSE).
- Requisitos: 3 llamadas distintas a la biblioteca 'math'.
- """
- # TODO: Implementar lógica
- pass
+    """
+    Usa la biblioteca 'math' para calcular el Root Mean Squared Error (RMSE).
+    Requisitos: 3 llamadas distintas a la biblioteca 'math'.
+    """
+    print("--- CÁLCULO DE RMSE ---")
+
+    n = len(predicciones)
+    suma_cuadrados = 0.0
+
+    contador = 0
+    while contador < n:
+        diferencia = predicciones[contador] - reales[contador]
+
+        cuadrado = math.pow(diferencia, 2)
+
+        cuadrado_abs = math.fabs(cuadrado)
+
+        suma_cuadrados = suma_cuadrados + cuadrado_abs
+        contador = contador + 1
+
+    mse = suma_cuadrados / n
+    rmse = math.sqrt(mse)
+    epochs_necesarios = math.ceil(rmse * MAX_EPOCHS)
+
+    print(f"RMSE calculado:              {rmse:.4f}")
+    print(f"Epochs recomendados:         {epochs_necesarios}")
+    print("--- FIN DEL CÁLCULO RMSE ---\n")
+
+    return rmse
+
 # ==========================================
 # 4. PROGRAMA PRINCIPAL (PUNTO DE ENTRADA)
 # ==========================================
