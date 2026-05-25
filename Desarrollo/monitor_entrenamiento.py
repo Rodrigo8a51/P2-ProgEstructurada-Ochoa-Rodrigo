@@ -55,4 +55,4 @@ def calcular_rmse(predicciones, reales):
 # ==========================================
 if __name__ == "__main__":
  print("=== INICIANDO SIMULADOR DE AGENTES DE IA ===")
- # TODO: Invocar las funciones, orquestar el flujo y mostrar reportes ordenados
+ # TODO: Invocar las funciones, orquestar el flujo y mostrar reportes ordenados.
